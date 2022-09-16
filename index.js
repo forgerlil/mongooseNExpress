@@ -4,19 +4,16 @@ require('dotenv').config();
 const connectToDB = require('./DB/dbConnection.js');
 connectToDB();
 const authorRouter = require('./routes/authorRoutes.js');
+const sanitize = require('express-mongo-sanitize');
 
 
 const port = process.env.PORT || 5000;
 
-// Since mongoose does not provide a sanitization tool out of the box, we can
-// make use of the express-mongo-sanitize package to sanitize our data, by
-// remoing any dollar signs ($) from the request body, query or params.
-// Documentation for it: https://www.npmjs.com/package/express-mongo-sanitize
-// It serves as a middleware, so we can apply it to our whole app!
-// Require it first:
-const sanitize = require('express-mongo-sanitize');
-// Then apply it to our app (you can also pass arguments to tailor your sanitization further)
 app.use(sanitize({ allowDots: true, replaceWith: "_" }))
+
+// When receiving data from the body of a request, it is important to parse it. This is easily handled by the express.json() middleware!
+// Remember: the .json() method only works if your request is sending json in the body. If it is sending form data, you will need to use the .urlencoded() method.
+app.use(express.json());
 
 app.use('/authors', authorRouter);
 

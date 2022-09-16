@@ -12,20 +12,32 @@ const getAuthors = async (req, res) => {
 const getAuthorById = async (req, res) => {
   try {
     const {id} = req.params;    
+
     const authorById = await AuthorCollection.findById(id);
-    // We do a conditional check to see if the author exists. If it does, we return the author. If it doesn't, we return a 404 status code and a message.
     if (authorById) return res.status(200).json(authorById);
-    // Remember, if you send a response like so, make sure that it be the return of your function, otherwise, you will get an error "Cannot set headers after they are sent to the client"
-    // Meaning: Your function sent a response but did not return, so it continues execution, and the next step is to send another response.
+
     res.status(404).send('Author not found');
   } catch (error) {
     res.status(500).send(error.message);
   }
 }
 
+const postAuthor = async (req, res) => {
+  try {
+    const {firstName, lastName, dateOfBirth} = req.body;
+    // We can do some validation whether our body is sending the expected data here. If not, we can send a 400 status code and a message to the client.
+    if (!firstName || !lastName || !dateOfBirth) return res.status(400).send('Please provide all required fields');
 
-const postAuthor = (req, res) => {
+    // Then additionally we can check if the author already exists in the database. If so, we can send a 400 status code and a message to the client.
+    const findAuthor = await AuthorCollection.findOne({lastName});
+    if (findAuthor) return res.status(400).send('Author already exists');
 
+    // And lastly, we can create a new author and save it to the database if everything is ok.
+    const newAuthor = await AuthorCollection.create(req.body);
+    res.status(201).json(newAuthor);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 }
 
 const updateAuthor = (req, res) => {
