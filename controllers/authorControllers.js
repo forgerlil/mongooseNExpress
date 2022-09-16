@@ -1,6 +1,3 @@
-// Now it is time to have our controller functions do something! Let's remove their content for now, and once
-// our database connection is in place, we will build some queries and send responses from here!
-
 const getAuthors = async (req, res) => {
 
 }
