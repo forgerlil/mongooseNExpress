@@ -1,8 +1,10 @@
-This repo starts at the final point of this repo: https://github.com/forgerlil/node-crash-course
+Changes:
 
-Through the Mongoose library facilitator, we will build a connection to our database, create a model and create, get and update data through it!
-
-If you are familiar with the repo linked above, this repo also follows the same steps:
-  - Make sure to start on the main branch, and check out the other branches to see the changes made to the code, step by step.
-  - The command is simply "git checkout step-x" where x is the number of the step you want to see.
-  - For every commit, the README file will be updated as well, make sure to check it out too!
+- Please run 'npm i' command now to install all relevant dependencies we will need for this project!
+- Some code from the previous project was erased. The only route this API will respond to is the '/authors' route, where we will perform different CRUD operations and interact with our database. You can traverse the files to read the comments.
+- You will need some local setup before continuing with this tutorial. Please go through the following steps:
+  - For this project, we will connect to a MongoDB database. For that you need to create a new Project in Mongo Atlas and add a free cluster to it.
+  - To generate your Mongo URI for you to connect your backend with your database, you need to click on "Connect" when on the main page for your cluster, and click on "Connect your application".
+  - It will generate your URI boilerplate, that should look approximately like this: 'mongodb+srv://<username>:<password>@<clusterNmae>.<clusterNum>.mongodb.net/<databaseName>?retryWrites=true&w=majority' (the databaseName is optional. If you skip it, whenever you create a document in your database through your backend/ODM, the database that will contain the collection will default to 'test').
+  - From here, create locally a .env file that sits at the root of your project, and create a variable meant to be your Mongo URI, with the above link as its value.
+  - From here on, you can go to the dbConnection.js file in the DB folder for the next step.
