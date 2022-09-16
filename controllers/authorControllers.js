@@ -1,25 +1,26 @@
-// Since we will have no html/front end to test our API, we will rely on Postman or Insomnia to
-// test our CRUD operations and see if our backend is responding as expected.
-
-// Firstly we need to import our Author collection from our models
 const AuthorCollection = require('../models/authorModel');
 
-// Given our database queries can take a little to complete, we will use async/await to handle them
 const getAuthors = async (req, res) => {
-  // With async/await, we use try/catch to handle errors
   try {
-    // Then we can query our database! This function is meant to return all authors in the database
     const authors = await AuthorCollection.find();
-    // And we return to our client the query in JSON format.
     res.status(200).json(authors);
   } catch (error) {
-    // If there is an error, we will send a 500 status code and the error's message to the client
     res.status(500).send(error.message)
   }
 }
 
 const getAuthorById = async (req, res) => {
-
+  try {
+    const {id} = req.params;    
+    const authorById = await AuthorCollection.findById(id);
+    // We do a conditional check to see if the author exists. If it does, we return the author. If it doesn't, we return a 404 status code and a message.
+    if (authorById) return res.status(200).json(authorById);
+    // Remember, if you send a response like so, make sure that it be the return of your function, otherwise, you will get an error "Cannot set headers after they are sent to the client"
+    // Meaning: Your function sent a response but did not return, so it continues execution, and the next step is to send another response.
+    res.status(404).send('Author not found');
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 }
 
 
