@@ -1,5 +1,8 @@
 Changes:
 
-- We now have a POST request where a new author can be added to the database.
-- When sending your POST request via Postman/Insomnia, remember to add a body to your request, and make sure to select the option "raw" and "JSON" in the dropdown menu.
-- Check index.js to see how to handle our apps incoming data.
+- We now have a PUT and DELETE requests for our authors.
+- It can grow a lot more from just these requests, naturally. You don't necessarily need to
+  use the same structure as I did, but it's a good guideline. Always consider what are your
+  project's needs and how you can best structure your API to meet them!
+
+  The End :)

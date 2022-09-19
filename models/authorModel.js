@@ -11,7 +11,11 @@ const authorSchema = new Schema({
     maxlength: 20,
     default: ''
   },
-  dateOfBirth: Date
+  dateOfBirth: Date,
+  active: {
+    type: Boolean,
+    default: true
+  }
 })
 
 module.exports = model('Author', authorSchema);
