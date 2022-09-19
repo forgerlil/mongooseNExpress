@@ -21,7 +21,11 @@ const authorSchema = new Schema({
     maxlength: 20,
     default: ''
   },
-  dateOfBirth: Date
+  dateOfBirth: Date,
+  active: {
+    type: Boolean,
+    default: true
+  }
 })
 
 // Finally, we export the model, pass the name (singular) of the collection we want to use (you will see that in Mongo the
